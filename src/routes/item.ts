@@ -6,10 +6,11 @@ import {
   getOne,
   updateOne,
 } from "../controllers/item";
+import { logMiddleWare } from "../middlewares/log";
 
 const router = Router();
 
-router.get("/", getAll);
+router.get("/",logMiddleWare, getAll);
 router.post("/", create);
 router.get("/:item_id", getOne);
 router.put("/:item_id", updateOne);
