@@ -1,10 +1,18 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
+import {
+  create,
+  deleteOne,
+  getAll,
+  getOne,
+  updateOne,
+} from "../controllers/item";
 
-export const router = Router();
+const router = Router();
 
-router.get("/", (req: Request ,res: Response) => {})
-router.post("/", (req: Request ,res: Response) => {})
-router.get("/:item_id", (req: Request ,res: Response) => {})
-router.put("/:item_id", (req: Request ,res: Response) => {})
-router.delete("/:item_id", (req: Request ,res: Response) => {})
+router.get("/", getAll);
+router.post("/", create);
+router.get("/:item_id", getOne);
+router.put("/:item_id", updateOne);
+router.delete("/:item_id", deleteOne);
 
+export { router };
