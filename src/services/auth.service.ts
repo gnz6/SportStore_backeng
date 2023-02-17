@@ -20,16 +20,23 @@ const registerNewUser = async({email, password, name, description}:User)=>{
 }
 const loginUser = async({email, password}: Auth)=>{
     const isRegistered = await UserModel.findOne({email})
-    if(!isRegistered) return "USER_NOT_FOUNT";
-
-    const hashedPassword = isRegistered.password;
-    const isCorrect = await comparePassword(password, hashedPassword)
-    if(!isCorrect) return "INVALID_USER_OR_PASSWORD";
-    const token =await jwtHandle.createToken(isRegistered.id);
-    console.log(token)
-    const { name } = isRegistered
-    const data = {token : token, user: {name, email}}
-    return data;
+    try {
+        if(!isRegistered) return "USER_NOT_FOUNT";
+    
+        const hashedPassword = isRegistered.password;
+        const isCorrect = await comparePassword(password, hashedPassword)
+        if(!isCorrect) return "INVALID_USER_OR_PASSWORD";
+        const token =await jwtHandle.createToken(isRegistered.id);
+        console.log(token)
+        const { name } = isRegistered
+        const data = {token : token, user: {name, email}}
+        return data;
+        
+    } catch (error) {
+        console.log(error);
+        return "INVALID_USER_OR_PASSWORD";
+        
+    }
 }
 
 

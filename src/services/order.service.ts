@@ -1,8 +1,6 @@
-import { OrderModel } from "../models/order";
-
 
 const getAllItems = async () => {
-    const responseItem = await OrderModel.find({});
+    const responseItem = "soy una respuesta";
     return responseItem;
   };
 

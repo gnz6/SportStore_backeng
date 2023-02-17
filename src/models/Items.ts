@@ -32,6 +32,19 @@ const ItemSchema = new Schema<Car>({
    model:{
     type:String,
     required: true
+   },
+   doors:{
+      type: Number,
+      required: true
+   },
+   used:{
+      type:Boolean,
+      default:false,
+      required:true
+   },
+   kilometers:{
+      type:Number,
+      default:0,
    }
 }
 )
