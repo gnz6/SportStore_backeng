@@ -1,4 +1,6 @@
 import { Router } from "express";
+import isAdmin from '../middlewares/isAdmin';
+import session from "../middlewares/session";
 import {
   create,
   deleteOne,
@@ -6,14 +8,13 @@ import {
   getOne,
   updateOne,
 } from "../controllers/item";
-import { logMiddleWare } from "../middlewares/log";
 
 const router = Router();
 
-router.get("/",logMiddleWare, getAll);
-router.post("/", create);
+router.get("/", getAll);
+router.post("/", session , isAdmin, create);
 router.get("/:item_id", getOne);
-router.put("/:item_id", updateOne);
-router.delete("/:item_id", deleteOne);
+router.put("/:item_id", session , isAdmin, updateOne);
+router.delete("/:item_id", session , isAdmin, deleteOne);
 
 export { router };

@@ -18,6 +18,15 @@ const UserSchema = new Schema<User>({
     type: String,
     required: true,
   },
+  isAdmin: {
+    type: Boolean,
+    required:true,
+    default:false
+  },
+  favourites:[{
+    type:String, 
+    default:[],
+  }]
 });
 
 const UserModel = model("Users", UserSchema);

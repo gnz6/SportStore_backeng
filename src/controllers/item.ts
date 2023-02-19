@@ -10,8 +10,9 @@ import {
 
 const getOne = async ({ params }: Request, res: Response) => {
   try {
-    const { id } = params;
-    const item = await getOneItem(id);
+    const { item_id } = params;
+    const item = await getOneItem(item_id);
+    console.log(item_id)
     return res.status(200).json({ ok: true, data: item });
   } catch (error) {
     console.log(error);

@@ -1,51 +1,43 @@
 import { Schema, Types , model, Model } from "mongoose";
-import { Car } from "../interfaces/car.interface";
+import { Product } from "../interfaces/product.interface";
 
 
-const ItemSchema = new Schema<Car>({
+const ItemSchema = new Schema<Product>({
    color: {
     type:String,
     required: true
-   },
-   gas:{
-    type:String,
-    enum :["gasoline", "electric", "other"],
-    defaultValue:"gasoline",
-    required: true
-   },
-   year:{
-    type:Number,
-    required: true
-   },
-   motor:{
-    type:String,
-    enum: [ "1.0" , "1.4" , "1.6" , "1.8" , "2.0" ]
    },
    price:{
     type:Number,
     required: true
    },
-   brand:{
+   brand:[{
     type:String,
+    enum:["Nike", "Adidas", "Jordan"],
     required: true
-   },
+   }],
    model:{
     type:String,
     required: true
    },
-   doors:{
-      type: Number,
-      required: true
+   description:{
+      type:String,
    },
-   used:{
-      type:Boolean,
-      default:false,
+   madeFor:[{
+      type:String,
+      enum:["man", "woman", "kids"],
+      default:"man",
       required:true
+   }],
+   picture:{
+      type:String
    },
-   kilometers:{
-      type:Number,
-      default:0,
-   }
+   category:[{
+      type:String,
+      enum: ["sneakers", "top", "bottom", "accessories", "other"],
+      default:"other",
+      required:true
+   }]
 }
 )
 

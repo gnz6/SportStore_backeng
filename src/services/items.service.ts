@@ -1,7 +1,7 @@
-import { Car } from "../interfaces/car.interface";
+import { Product } from "../interfaces/product.interface";
 import { ItemModel } from "../models/Items";
 
-const createItem = async ({ ...args }: Car) => {
+const createItem = async ({ ...args }: Product) => {
   const responseInsert = await ItemModel.create({ ...args });
   return responseInsert;
 };
@@ -16,7 +16,7 @@ const getOneItem = async (item_id: string) => {
   return responseItem;
 };
 
-const updateItem = async (item_id: string, body: Car) => {
+const updateItem = async (item_id: string, body: Product) => {
   const responseItem = await ItemModel.findByIdAndUpdate(item_id, body, {
     new: true,
   });
