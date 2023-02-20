@@ -1,7 +1,11 @@
 import { ItemModel } from "../models/Items";
 import { UserModel } from "../models/Users";
+import { User } from "../interfaces/user.interface";
 
-export const toogleFav = async (product_id: string, user_id: string) => {
+export const toogleFav = async (
+  product_id: string = "",
+  user_id: string = ""
+) => {
   try {
     const product = await ItemModel.findOne({ _id: product_id });
     const findUser = await UserModel.findOne({ _id: user_id });
@@ -9,35 +13,19 @@ export const toogleFav = async (product_id: string, user_id: string) => {
 
     let userFavs: string[] = findUser.favourites;
 
-
     if (userFavs.includes(product_id)) {
-      userFavs = userFavs.filter((fav) => fav != product_id);
+      userFavs = userFavs.filter((fav) => fav !== product_id);
     } else if (!userFavs.includes(product_id)) {
       userFavs.push(product_id);
     }
-
-    // findUser.favourites = userFavs
-    const updatedUser = {
-      ...findUser,
-      favourites: userFavs,
-    };
-    console.log(updatedUser);
-
-    const response = await UserModel.findByIdAndUpdate(user_id, updatedUser, {
+    findUser.favourites = userFavs;
+    await UserModel.findByIdAndUpdate(user_id, findUser, {
       new: true,
     });
-    // console.log(response)
 
-    return "FAV_ADDED";
+    return "FAV_TOGGLE";
   } catch (error) {
     console.log(error);
     return "REQUEST_ERROR";
   }
 };
-
-// const toggleFav = async (item_id: string, body: Product) => {
-//   const responseItem = await ItemModel.findByIdAndUpdate(item_id, body, {
-//     new: true,
-//   });
-//   return responseItem;
-// };
